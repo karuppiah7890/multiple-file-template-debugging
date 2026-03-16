@@ -19056,3 +19056,50 @@ laborant@docker-01:task_5b044399$ gst
 On branch main
 nothing to commit, working tree clean
 laborant@docker-01:task_5b044399$ 
+ multiple-file-template-debugging  main ✘  $ gst
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	modified:   environment/Dockerfile
+	modified:   verifier/verify.py
+
+ multiple-file-template-debugging  main ✘  $ gds
+diff --git a/environment/Dockerfile b/environment/Dockerfile
+index 895da42..6c62fe0 100644
+--- a/environment/Dockerfile
++++ b/environment/Dockerfile
+@@ -29,9 +29,9 @@ RUN curl -fsSL https://get.helm.sh/helm-v3.20.1-linux-amd64.tar.gz -o helm-v3.20
+     && mv kind-linux-amd64 /usr/local/bin/kind \
+diff --git a/environment/Dockerfile b/environment/Dockerfile
+index 895da42..6c62fe0 100644
+--- a/environment/Dockerfile
++++ b/environment/Dockerfile
+@@ -29,9 +29,9 @@ RUN curl -fsSL https://get.helm.sh/helm-v3.20.1-linux-amd64.ta
+r.gz -o helm-v3.20
+     && mv kind-linux-amd64 /usr/local/bin/kind \
+     && chmod +x /usr/local/bin/kind
+ 
+-WORKDIR /app/helm-charts-editor
++WORKDIR /app
+ 
+-COPY helm-charts-editor/ /app/helm-charts-editor/
++COPY helm-charts-editor/ /app/
+ 
+ RUN git init >/dev/null 2>&1 \
+     && git config user.email task@example.com \
+diff --git a/verifier/verify.py b/verifier/verify.py
+index a5dcc1d..8563f63 100644
+--- a/verifier/verify.py
++++ b/verifier/verify.py
+@@ -8,7 +8,7 @@ from pathlib import Path
+ import yaml
+ 
+ 
+-WORKSPACE = Path("/app/helm-charts-editor")
++WORKSPACE = Path("/app")
+ CHART_DIR = WORKSPACE / "charts" / "mlflow"
+ TARGET_FILES = [
+     CHART_DIR / "values.yaml",
+ multiple-file-template-debugging  main ✘  $ 
