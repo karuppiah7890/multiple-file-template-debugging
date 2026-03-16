@@ -641,3 +641,41 @@ Raw Output
   "summary": "- [HIGH] Remove requirement 4: the specific `helm template mlflow-test ...` example and expected PVC name. It reiterates outcomes already mandated by using `{{ include \"mlflow.fullname\" . }}-data-pvc` and aligning the claim reference; consolidate to a single generic acceptance check if needed.\n- [HIGH] Remove requirement 5: the `helm template prod-check ...` example and expected PVC name. It duplicates requirement 2’s consequence and adds no new constraints; keep at most one consolidated acceptance criterion.\n- [MEDIUM] Remove the “Important scope note” about multiple `persistence` blocks in `values.schema.json`. This is discoverable by inspecting the codebase and is process guidance, not a requirement.",
   "verdict": "request_changes"
 }
+
+---
+
+Dockerfile
+Dockerfile guidelines
+Warning: the Dockerfile downloads prebuilt binaries from external hosts (get.helm.sh, dl.k8s.io, kind.sigs.k8s.io) during build. These downloads are validated with sha256 checksums, which mitigates supply-chain risk, but the build requires network access and relies on third-party endpoints. If offline reproducibility or stricter supply-chain controls are required, consider vendoring the binaries into the build context or supplying verified artifacts in the bundle. Review the referenced checksums and sources before trusting the resulting image.
+
+Note: Internet access is available during `docker build`, but not when running the container. Ensure the Dockerfile installs everything needed for the environment to work offline after build.
+
+Raw Output
+
+{
+  "all_issues": "Warning: the Dockerfile downloads prebuilt binaries from external hosts (get.helm.sh, dl.k8s.io, kind.sigs.k8s.io) during build. These downloads are validated with sha256 checksums, which mitigates supply-chain risk, but the build requires network access and relies on third-party endpoints. If offline reproducibility or stricter supply-chain controls are required, consider vendoring the binaries into the build context or supplying verified artifacts in the bundle. Review the referenced checksums and sources before trusting the resulting image.",
+  "base_image_compliant": {
+    "explanation": "Base image is debian:trixie, a current Debian release. This is a reasonable Linux base and does not enforce any prohibited base image. No compatibility or obsolescence issues detected.",
+    "status": "OK"
+  },
+  "dependencies_installed": {
+    "explanation": "System packages (bash, ca-certificates, curl, git, jq, python3, python3-yaml, tar, gzip) are installed via apt, and additional tooling (helm v3.20.1, kubectl v1.35.1, kind v0.31.0) are fetched and placed in /usr/local/bin. Dependencies required to operate common tooling are present.",
+    "status": "OK"
+  },
+  "environment_setup": {
+    "explanation": "WORKDIR is set to /app and the Dockerfile copies helm-charts-editor/ into /app. The Dockerfile initializes a git repo and seeds a commit so /app will contain a usable workspace after build. The workspace is created in /app as required.",
+    "status": "OK"
+  },
+  "interactive_shell": {
+    "explanation": "A shell-style CMD is provided (CMD [\"/bin/bash\"]) and the working directory is /app, so a solver can interact with the workspace using a shell after container start.",
+    "status": "OK"
+  },
+  "runtime_validation": {
+    "explanation": "Build-time actions are lightweight: apt installs, binary downloads with SHA256 checks, and a local git init/commit. No heavy runtime benchmarks or brittle validation steps are run during build. The sha256sum checks add integrity validation for fetched binaries.",
+    "status": "OK"
+  },
+  "security_safety": {
+    "explanation": "Warning: the Dockerfile downloads prebuilt binaries from external hosts (get.helm.sh, dl.k8s.io, kind.sigs.k8s.io) during build. These downloads are validated with sha256 checksums, which mitigates supply-chain risk, but the build requires network access and relies on third-party endpoints. If offline reproducibility or stricter supply-chain controls are required, consider vendoring the binaries into the build context or supplying verified artifacts in the bundle. Review the referenced checksums and sources before trusting the resulting image.",
+    "status": "warning"
+  }
+}
