@@ -19404,3 +19404,606 @@ laborant@docker-01:environment$ docker build -t project .
  => => naming to docker.io/library/project:latest                                                                                            0.0s
  => => unpacking to docker.io/library/project:latest                                                                                         0.0s
 laborant@docker-01:environment$ 
+
+laborant@docker-01:environment$ ls
+Dockerfile  environment.zip  helm-charts-editor
+laborant@docker-01:environment$ rm environment.zip 
+laborant@docker-01:environment$ zip -r environment .
+  adding: Dockerfile (deflated 55%)
+  adding: helm-charts-editor/ (stored 0%)
+  adding: helm-charts-editor/load-images-to-private-registry.sh (stored 0%)
+  adding: helm-charts-editor/offline_image_management.md (deflated 32%)
+  adding: helm-charts-editor/get-chart-images.sh (stored 0%)
+  adding: helm-charts-editor/show_notification.ps1 (deflated 6%)
+  adding: helm-charts-editor/save-images.ps1 (stored 0%)
+  adding: helm-charts-editor/load-images-to-private-registry.ps1 (stored 0%)
+  adding: helm-charts-editor/script-guide.md (deflated 31%)
+  adding: helm-charts-editor/category.yaml (deflated 3%)
+  adding: helm-charts-editor/charts/ (stored 0%)
+  adding: helm-charts-editor/charts/milvus/ (stored 0%)
+  adding: helm-charts-editor/charts/milvus/Chart.yaml (deflated 18%)
+  adding: helm-charts-editor/charts/jenkins/ (stored 0%)
+  adding: helm-charts-editor/charts/jenkins/Chart.yaml (deflated 18%)
+  adding: helm-charts-editor/charts/gitlab/ (stored 0%)
+  adding: helm-charts-editor/charts/gitlab/Chart.yaml (deflated 18%)
+  adding: helm-charts-editor/charts/gitea/ (stored 0%)
+  adding: helm-charts-editor/charts/gitea/Chart.yaml (deflated 19%)
+  adding: helm-charts-editor/charts/argo-cd/ (stored 0%)
+  adding: helm-charts-editor/charts/argo-cd/Chart.yaml (deflated 18%)
+  adding: helm-charts-editor/charts/eck-elasticsearch/ (stored 0%)
+  adding: helm-charts-editor/charts/eck-elasticsearch/Chart.yaml (deflated 21%)
+  adding: helm-charts-editor/charts/ingress-nginx/ (stored 0%)
+  adding: helm-charts-editor/charts/ingress-nginx/Chart.yaml (deflated 19%)
+  adding: helm-charts-editor/charts/phoenix/ (stored 0%)
+  adding: helm-charts-editor/charts/phoenix/Chart.yaml (deflated 19%)
+  adding: helm-charts-editor/charts/postgresql/ (stored 0%)
+  adding: helm-charts-editor/charts/postgresql/Chart.yaml (deflated 20%)
+  adding: helm-charts-editor/charts/redis-ha/ (stored 0%)
+  adding: helm-charts-editor/charts/redis-ha/Chart.yaml (deflated 19%)
+  adding: helm-charts-editor/charts/redis/ (stored 0%)
+  adding: helm-charts-editor/charts/redis/Chart.yaml (deflated 19%)
+  adding: helm-charts-editor/charts/mlflow/ (stored 0%)
+  adding: helm-charts-editor/charts/mlflow/values.yaml (deflated 48%)
+  adding: helm-charts-editor/charts/mlflow/templates/ (stored 0%)
+  adding: helm-charts-editor/charts/mlflow/templates/configmap.yaml (deflated 30%)
+  adding: helm-charts-editor/charts/mlflow/templates/deployment.yaml (deflated 67%)
+  adding: helm-charts-editor/charts/mlflow/templates/serviceaccount.yaml (deflated 37%)
+  adding: helm-charts-editor/charts/mlflow/templates/service.yaml (deflated 50%)
+  adding: helm-charts-editor/charts/mlflow/templates/_helpers.tpl (deflated 71%)
+  adding: helm-charts-editor/charts/mlflow/templates/pvc.yaml (deflated 49%)
+  adding: helm-charts-editor/charts/mlflow/RELEASE-NOTES.md (deflated 9%)
+  adding: helm-charts-editor/charts/mlflow/values.schema.json (deflated 85%)
+  adding: helm-charts-editor/charts/mlflow/.helmignore (stored 0%)
+  adding: helm-charts-editor/charts/mlflow/Chart.yaml (deflated 46%)
+  adding: helm-charts-editor/charts/mlflow/charts/ (stored 0%)
+  adding: helm-charts-editor/charts/mlflow/charts/postgresql/ (stored 0%)
+  adding: helm-charts-editor/charts/mlflow/charts/postgresql/Chart.yaml (deflated 20%)
+  adding: helm-charts-editor/charts/mlflow/charts/mysql/ (stored 0%)
+  adding: helm-charts-editor/charts/mlflow/charts/mysql/Chart.yaml (deflated 19%)
+  adding: helm-charts-editor/charts/mlflow/README.md (deflated 36%)
+  adding: helm-charts-editor/charts/mlflow/Chart.lock (deflated 38%)
+  adding: helm-charts-editor/charts/mlflow/LICENSE (deflated 36%)
+  adding: helm-charts-editor/.gitignore (stored 0%)
+  adding: helm-charts-editor/plan.yaml (deflated 12%)
+  adding: helm-charts-editor/save-images.sh (stored 0%)
+  adding: helm-charts-editor/show_notification.sh (deflated 4%)
+  adding: helm-charts-editor/get-chart-images.ps1 (stored 0%)
+laborant@docker-01:environment$ cd ..
+laborant@docker-01:task_5b044399$ cd verifier/
+laborant@docker-01:verifier$ zip -r verifier .
+updating: verify.py (deflated 69%)
+updating: __pycache__/ (stored 0%)
+updating: __pycache__/verify.cpython-312.pyc (deflated 45%)
+updating: verifier.sh (deflated 9%)
+laborant@docker-01:verifier$ cd ../environment/
+laborant@docker-01:environment$ docker build -t project .
+[+] Building 0.2s (9/13)                                                                                                           docker:default
+ => [internal] load build definition from Dockerfile                                                                                         0.0s
+ => => transferring dockerfile: 1.39kB                                                                                                       0.0s
+ => [internal] load metadata for docker.io/library/debian:trixie                                                                             0.2s
+ => [internal] load .dockerignore                                                                                                            0.0s
+ => => transferring context: 2B                                                                                                              0.0s
+ => [1/9] FROM docker.io/library/debian:trixie@sha256:3615a749858a1cba49b408fb49c37093db813321355a9ab7c1f9f4836341e9db                       0.0s
+ => => resolve docker.io/library/debian:trixie@sha256:3615a749858a1cba49b408fb49c37093db813321355a9ab7c1f9f4836341e9db                       0.0s
+ => [internal] load build context                                                                                                            0.0s
+ => => transferring context: 3.58kB                                                                                                          0.0s
+ => CACHED [2/9] RUN apt-get update && apt-get install -y --no-install-recommends     bash     ca-certificates     curl     git     jq       0.0s
+ => ERROR [3/9] COPY helm-v3.20.1-linux-amd64.tar.gz .                                                                                       0.0s
+ => ERROR [4/9] COPY kubectl .                                                                                                               0.0s
+ => ERROR [5/9] COPY kind-linux-amd64 .                                                                                                      0.0s
+------
+ > [3/9] COPY helm-v3.20.1-linux-amd64.tar.gz .:
+------
+------
+ > [4/9] COPY kubectl .:
+------
+------
+ > [5/9] COPY kind-linux-amd64 .:
+------
+Dockerfile:17
+--------------------
+  15 |         && rm -rv /var/lib/apt/lists/*
+  16 |     
+  17 | >>> COPY helm-v3.20.1-linux-amd64.tar.gz .
+  18 |     
+  19 |     COPY kubectl .
+--------------------
+ERROR: failed to build: failed to solve: failed to compute cache key: failed to calculate checksum of ref brdpaabi0scdp58yvywr4ctdd::sw7kan2arv9q8nn33g6jy55tm: "/helm-v3.20.1-linux-amd64.tar.gz": not found
+laborant@docker-01:environment$ gst
+On branch main
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   Dockerfile
+
+no changes added to commit (use "git add" and/or "git commit -a")
+laborant@docker-01:environment$ gd
+diff --git a/environment/Dockerfile b/environment/Dockerfile
+index 6c62fe0..85739fa 100644
+--- a/environment/Dockerfile
++++ b/environment/Dockerfile
+@@ -14,17 +14,20 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
+     gzip \
+     && rm -rv /var/lib/apt/lists/*
+ 
+-RUN curl -fsSL https://get.helm.sh/helm-v3.20.1-linux-amd64.tar.gz -o helm-v3.20.1-linux-amd64.tar.gz \
+-    && echo "0165ee4a2db012cc657381001e593e981f42aa5707acdd50658326790c9d0dc3  helm-v3.20.1-linux-amd64.tar.gz" | sha256sum --check \
++COPY helm-v3.20.1-linux-amd64.tar.gz .
++
++COPY kubectl .
++
++COPY kind-linux-amd64 .
++
++RUN echo "0165ee4a2db012cc657381001e593e981f42aa5707acdd50658326790c9d0dc3  helm-v3.20.1-linux-amd64.tar.gz" | sha256sum --check \
+     && tar xvzf helm-v3.20.1-linux-amd64.tar.gz \
+     && mv linux-amd64/helm /usr/local/bin \
+     && chmod +x /usr/local/bin/helm \
+     && rm -rv linux-amd64 helm-v3.20.1-linux-amd64.tar.gz \
+-    && curl -fsSL https://dl.k8s.io/v1.35.1/bin/linux/amd64/kubectl -o kubectl \
+     && echo "36e2f4ac66259232341dd7866952d64a958846470f6a9a6a813b9117bd965207  kubectl" | sha256sum --check \
+     && mv kubectl /usr/local/bin/kubectl \
+     && chmod +x /usr/local/bin/kubectl \
+-    && curl -fsSL https://kind.sigs.k8s.io/dl/v0.31.0/kind-linux-amd64 -o kind-linux-amd64 \
+     && echo "eb244cbafcc157dff60cf68693c14c9a75c4e6e6fedaf9cd71c58117cb93e3fa  kind-linux-amd64" | sha256sum --check \
+     && mv kind-linux-amd64 /usr/local/bin/kind \
+     && chmod +x /usr/local/bin/kind
+laborant@docker-01:environment$ gc -m "update Dockerfile"
+On branch main
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   Dockerfile
+
+no changes added to commit (use "git add" and/or "git commit -a")
+laborant@docker-01:environment$ gst
+On branch main
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   Dockerfile
+
+no changes added to commit (use "git add" and/or "git commit -a")
+laborant@docker-01:environment$ ga .
+laborant@docker-01:environment$ gc -m "update Dockerfile"
+[main 846b449] update Dockerfile
+ 1 file changed, 7 insertions(+), 4 deletions(-)
+laborant@docker-01:environment$ curl -fsSL https://dl.k8s.io/v1.35.1/bin/linux/amd64/kubectl -o kubectl
+laborant@docker-01:environment$ curl -fsSL https://get.helm.sh/helm-v3.20.1-linux-amd64.tar.gz -o helm-v3.20.1-linux-amd64.tar.gz
+laborant@docker-01:environment$ curl -fsSL https://kind.sigs.k8s.io/dl/v0.31.0/kind-linux-amd64 -o kind-linux-amd64
+laborant@docker-01:environment$ ls
+Dockerfile  environment.zip  helm-charts-editor  helm-v3.20.1-linux-amd64.tar.gz  kind-linux-amd64  kubectl
+laborant@docker-01:environment$ gst
+On branch main
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        helm-v3.20.1-linux-amd64.tar.gz
+        kind-linux-amd64
+        kubectl
+
+nothing added to commit but untracked files present (use "git add" to track)
+laborant@docker-01:environment$ docker build -t project .
+[+] Building 4.6s (14/14) FINISHED                                                                                                 docker:default
+ => [internal] load build definition from Dockerfile                                                                                         0.0s
+ => => transferring dockerfile: 1.39kB                                                                                                       0.0s
+ => [internal] load metadata for docker.io/library/debian:trixie                                                                             0.0s
+ => [internal] load .dockerignore                                                                                                            0.0s
+ => => transferring context: 2B                                                                                                              0.0s
+ => [1/9] FROM docker.io/library/debian:trixie@sha256:3615a749858a1cba49b408fb49c37093db813321355a9ab7c1f9f4836341e9db                       0.0s
+ => => resolve docker.io/library/debian:trixie@sha256:3615a749858a1cba49b408fb49c37093db813321355a9ab7c1f9f4836341e9db                       0.0s
+ => [internal] load build context                                                                                                            0.2s
+ => => transferring context: 87.18MB                                                                                                         0.2s
+ => CACHED [2/9] RUN apt-get update && apt-get install -y --no-install-recommends     bash     ca-certificates     curl     git     jq       0.0s
+ => [3/9] COPY helm-v3.20.1-linux-amd64.tar.gz .                                                                                             0.1s
+ => [4/9] COPY kubectl .                                                                                                                     0.1s
+ => [5/9] COPY kind-linux-amd64 .                                                                                                            0.0s
+ => [6/9] RUN echo "0165ee4a2db012cc657381001e593e981f42aa5707acdd50658326790c9d0dc3  helm-v3.20.1-linux-amd64.tar.gz" | sha256sum --check   0.7s
+ => [7/9] WORKDIR /app                                                                                                                       0.0s 
+ => [8/9] COPY helm-charts-editor/ /app/                                                                                                     0.0s 
+ => [9/9] RUN git init >/dev/null 2>&1     && git config user.email task@example.com     && git config user.name "Task Seed"     && git add  0.3s 
+ => exporting to image                                                                                                                       3.2s 
+ => => exporting layers                                                                                                                      2.6s 
+ => => exporting manifest sha256:074276661069ed64d638c89cd55872ff57e2f0dceb606676c636fba60b4c9606                                            0.0s 
+ => => exporting config sha256:4934983637a698e535b088ce59bc53554100b8afebc92e62b046eaf753182535                                              0.0s
+ => => exporting attestation manifest sha256:c06f613caa7a9a4899ce0cdc370f636fa6eedb01c01662c84d5a6df2351b2042                                0.0s
+ => => exporting manifest list sha256:f97fc9943e5ff54df53626d9dbec779214b3a6527d66f06f3a55ea943158dddd                                       0.0s
+ => => naming to docker.io/library/project:latest                                                                                            0.0s
+ => => unpacking to docker.io/library/project:latest                                                                                         0.5s
+laborant@docker-01:environment$ docker run --rm -it project
+root@9e579c7a95b3:/app# helm version
+version.BuildInfo{Version:"v3.20.1", GitCommit:"a2369ca71c0ef633bf6e4fccd66d634eb379b371", GitTreeState:"clean", GoVersion:"go1.25.8"}
+root@9e579c7a95b3:/app# ls
+category.yaml         get-chart-images.sh                  offline_image_management.md  save-images.sh         show_notification.sh
+charts                load-images-to-private-registry.ps1  plan.yaml                    script-guide.md
+get-chart-images.ps1  load-images-to-private-registry.sh   save-images.ps1              show_notification.ps1
+root@9e579c7a95b3:/app# ls /
+app  bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+root@9e579c7a95b3:/app# kind version
+kind v0.31.0 go1.25.5 linux/amd64
+root@9e579c7a95b3:/app# kubectl version
+Client Version: v1.35.1
+Kustomize Version: v5.7.1
+The connection to the server localhost:8080 was refused - did you specify the right host or port?
+root@9e579c7a95b3:/app# 
+exit
+laborant@docker-01:environment$ 
+laborant@docker-01:environment$ gst
+On branch main
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        helm-v3.20.1-linux-amd64.tar.gz
+        kind-linux-amd64
+        kubectl
+
+nothing added to commit but untracked files present (use "git add" to track)
+laborant@docker-01:environment$ ga .
+laborant@docker-01:environment$ gst
+On branch main
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   helm-v3.20.1-linux-amd64.tar.gz
+        new file:   kind-linux-amd64
+        new file:   kubectl
+
+laborant@docker-01:environment$ gc -m "add artifacts as part of docker build context"
+[main 27822ba] add artifacts as part of docker build context
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 environment/helm-v3.20.1-linux-amd64.tar.gz
+ create mode 100644 environment/kind-linux-amd64
+ create mode 100644 environment/kubectl
+laborant@docker-01:environment$ 
+laborant@docker-01:environment$ ls
+Dockerfile  environment.zip  helm-charts-editor  helm-v3.20.1-linux-amd64.tar.gz  kind-linux-amd64  kubectl
+laborant@docker-01:environment$ rm environment.zip 
+laborant@docker-01:environment$ zip -r environment .
+  adding: Dockerfile (deflated 53%)
+  adding: kubectl (deflated 70%)
+  adding: helm-charts-editor/ (stored 0%)
+  adding: helm-charts-editor/load-images-to-private-registry.sh (stored 0%)
+  adding: helm-charts-editor/offline_image_management.md (deflated 32%)
+  adding: helm-charts-editor/get-chart-images.sh (stored 0%)
+  adding: helm-charts-editor/show_notification.ps1 (deflated 6%)
+  adding: helm-charts-editor/save-images.ps1 (stored 0%)
+  adding: helm-charts-editor/load-images-to-private-registry.ps1 (stored 0%)
+  adding: helm-charts-editor/script-guide.md (deflated 31%)
+  adding: helm-charts-editor/category.yaml (deflated 3%)
+  adding: helm-charts-editor/charts/ (stored 0%)
+  adding: helm-charts-editor/charts/milvus/ (stored 0%)
+  adding: helm-charts-editor/charts/milvus/Chart.yaml (deflated 18%)
+  adding: helm-charts-editor/charts/jenkins/ (stored 0%)
+  adding: helm-charts-editor/charts/jenkins/Chart.yaml (deflated 18%)
+  adding: helm-charts-editor/charts/gitlab/ (stored 0%)
+  adding: helm-charts-editor/charts/gitlab/Chart.yaml (deflated 18%)
+  adding: helm-charts-editor/charts/gitea/ (stored 0%)
+  adding: helm-charts-editor/charts/gitea/Chart.yaml (deflated 19%)
+  adding: helm-charts-editor/charts/argo-cd/ (stored 0%)
+  adding: helm-charts-editor/charts/argo-cd/Chart.yaml (deflated 18%)
+  adding: helm-charts-editor/charts/eck-elasticsearch/ (stored 0%)
+  adding: helm-charts-editor/charts/eck-elasticsearch/Chart.yaml (deflated 21%)
+  adding: helm-charts-editor/charts/ingress-nginx/ (stored 0%)
+  adding: helm-charts-editor/charts/ingress-nginx/Chart.yaml (deflated 19%)
+  adding: helm-charts-editor/charts/phoenix/ (stored 0%)
+  adding: helm-charts-editor/charts/phoenix/Chart.yaml (deflated 19%)
+  adding: helm-charts-editor/charts/postgresql/ (stored 0%)
+  adding: helm-charts-editor/charts/postgresql/Chart.yaml (deflated 20%)
+  adding: helm-charts-editor/charts/redis-ha/ (stored 0%)
+  adding: helm-charts-editor/charts/redis-ha/Chart.yaml (deflated 19%)
+  adding: helm-charts-editor/charts/redis/ (stored 0%)
+  adding: helm-charts-editor/charts/redis/Chart.yaml (deflated 19%)
+  adding: helm-charts-editor/charts/mlflow/ (stored 0%)
+  adding: helm-charts-editor/charts/mlflow/values.yaml (deflated 48%)
+  adding: helm-charts-editor/charts/mlflow/templates/ (stored 0%)
+  adding: helm-charts-editor/charts/mlflow/templates/configmap.yaml (deflated 30%)
+  adding: helm-charts-editor/charts/mlflow/templates/deployment.yaml (deflated 67%)
+  adding: helm-charts-editor/charts/mlflow/templates/serviceaccount.yaml (deflated 37%)
+  adding: helm-charts-editor/charts/mlflow/templates/service.yaml (deflated 50%)
+  adding: helm-charts-editor/charts/mlflow/templates/_helpers.tpl (deflated 71%)
+  adding: helm-charts-editor/charts/mlflow/templates/pvc.yaml (deflated 49%)
+  adding: helm-charts-editor/charts/mlflow/RELEASE-NOTES.md (deflated 9%)
+  adding: helm-charts-editor/charts/mlflow/values.schema.json (deflated 85%)
+  adding: helm-charts-editor/charts/mlflow/.helmignore (stored 0%)
+  adding: helm-charts-editor/charts/mlflow/Chart.yaml (deflated 46%)
+  adding: helm-charts-editor/charts/mlflow/charts/ (stored 0%)
+  adding: helm-charts-editor/charts/mlflow/charts/postgresql/ (stored 0%)
+  adding: helm-charts-editor/charts/mlflow/charts/postgresql/Chart.yaml (deflated 20%)
+  adding: helm-charts-editor/charts/mlflow/charts/mysql/ (stored 0%)
+  adding: helm-charts-editor/charts/mlflow/charts/mysql/Chart.yaml (deflated 19%)
+  adding: helm-charts-editor/charts/mlflow/README.md (deflated 36%)
+  adding: helm-charts-editor/charts/mlflow/Chart.lock (deflated 38%)
+  adding: helm-charts-editor/charts/mlflow/LICENSE (deflated 36%)
+  adding: helm-charts-editor/.gitignore (stored 0%)
+  adding: helm-charts-editor/plan.yaml (deflated 12%)
+  adding: helm-charts-editor/save-images.sh (stored 0%)
+  adding: helm-charts-editor/show_notification.sh (deflated 4%)
+  adding: helm-charts-editor/get-chart-images.ps1 (stored 0%)
+  adding: helm-v3.20.1-linux-amd64.tar.gz (deflated 1%)
+  adding: kind-linux-amd64 (deflated 61%)
+laborant@docker-01:environment$ 
+ multiple-file-template-debugging  main ✔ ⬆  $ labctl 
+labctl - iximiuz Labs command line interface.
+
+Usage:
+  labctl [command]
+
+Available Commands:
+  api          Send requests to iximiuz Labs API
+  auth         Authenticate the current CLI session with iximiuz Labs
+  challenge    Solve DevOps challenges from the comfort of your terminal
+  completion   Generate the autocompletion script for the specified shell
+  content      Author and manage content (challenge, tutorial, course, etc.)
+  course       Start and stop course lessons from the comfort of your terminal
+  cp           Copy files to and from the target playground
+  expose       Expose HTTP(s) ports and web terminals for a running playground
+  help         Help about any command
+  playground   List, start and stop playgrounds
+  port-forward Forward one or more local or remote ports to a running playground
+  ssh          Start SSH session to the target playground
+  ssh-proxy    Start SSH proxy to the playground's machine
+  tutorial     Follow tutorials from the comfort of your local command line
+  version      Print the version of labctl
+
+Flags:
+      --endpoint string    iximiuz Labs API endpoint URL
+  -h, --help               help for labctl
+  -l, --log-level string   log level for labctl ("debug" | "info" | "warn" | "error" | "fatal") (default "info")
+  -v, --version            version for labctl
+
+Use "labctl [command] --help" for more information about a command.
+ multiple-file-template-debugging  main ✘ ⬆  $ labctl auth
+Authenticate the current CLI session with iximiuz Labs
+
+Usage:
+  labctl auth [command]
+
+Available Commands:
+  login       Log in as a Labs user (you will be prompted to open a browser page with a one-time use URL)
+  logout      Log out the current user by deleting the current CLI session
+  whoami      Print the current user info
+
+Flags:
+  -h, --help   help for auth
+
+Global Flags:
+      --endpoint string    iximiuz Labs API endpoint URL
+  -l, --log-level string   log level for labctl ("debug" | "info" | "warn" | "error" | "fatal") (default "info")
+
+Use "labctl auth [command] --help" for more information about a command.
+ multiple-file-template-debugging  main ✘ ⬆  $ labctl auth whoami
+Not logged in. Use 'labctl auth login' to log in.
+ multiple-file-template-debugging  main ✘ ⬆  $ labctl auth login
+Opening https://labs.iximiuz.com/auth/sessions/69b7d37498bd920ba42a8de0 in your browser...
+
+Waiting for the session to be authorized... Done.
+
+Session authorized. You can now use labctl commands.
+ multiple-file-template-debugging  main ✘ ⬆  $ labctl auth whoami
+Authentication session expired. Please log in again: labctl auth login
+ multiple-file-template-debugging  main ✘ ⬆  $ labctl auth login
+Opening https://labs.iximiuz.com/auth/sessions/69b7d3e998bd920ba42ab184 in your browser...
+
+Waiting for the session to be authorized... Done.
+
+Session authorized. You can now use labctl commands.
+ multiple-file-template-debugging  main ✘ ⬆  $ labctl auth whoami
+userId: 694a655e63c2f9c6e22cf727
+githubProfileId: "12808424"
+ multiple-file-template-debugging  main ✘ ⬆  $ labctl 
+labctl - iximiuz Labs command line interface.
+
+Usage:
+  labctl [command]
+
+Available Commands:
+  api          Send requests to iximiuz Labs API
+  auth         Authenticate the current CLI session with iximiuz Labs
+  challenge    Solve DevOps challenges from the comfort of your terminal
+  completion   Generate the autocompletion script for the specified shell
+  content      Author and manage content (challenge, tutorial, course, etc.)
+  course       Start and stop course lessons from the comfort of your terminal
+  cp           Copy files to and from the target playground
+  expose       Expose HTTP(s) ports and web terminals for a running playground
+  help         Help about any command
+  playground   List, start and stop playgrounds
+  port-forward Forward one or more local or remote ports to a running playground
+  ssh          Start SSH session to the target playground
+  ssh-proxy    Start SSH proxy to the playground's machine
+  tutorial     Follow tutorials from the comfort of your local command line
+  version      Print the version of labctl
+
+Flags:
+      --endpoint string    iximiuz Labs API endpoint URL
+  -h, --help               help for labctl
+  -l, --log-level string   log level for labctl ("debug" | "info" | "warn" | "error" | "fatal") (default "info")
+  -v, --version            version for labctl
+
+Use "labctl [command] --help" for more information about a command.
+ multiple-file-template-debugging  main ✘ ⬆  $ labctl cp
+Error: requires at least 2 arg(s), only received 0
+Usage:
+  labctl cp [flags] <playground-id>:<source-path> <destination-path>
+  labctl cp [flags] <source-path> <playground-id>:<destination-path>
+
+Examples:
+  # Copy a file from local machine to playground
+  labctl cp ./some/file 65e78a64366c2b0cf9ddc34c:~/some/file
+
+  # Copy a directory from local machine to playground
+  labctl cp -r ./some/dir 65e78a64366c2b0cf9ddc34c:~/some/dir
+
+  # Copy a file from the playground to local machine
+  labctl cp 65e78a64366c2b0cf9ddc34c:~/some/file ./some/file
+
+  # Copy a directory from the playground to local machine
+  labctl cp 65e78a64366c2b0cf9ddc34c:~/some/dir ./some/dir
+
+
+Flags:
+  -h, --help             help for cp
+  -m, --machine string   Target machine (default: the first machine in the playground)
+  -r, --recursive        Copy directories recursively
+  -u, --user string      SSH user (default: the machine's default login user)
+
+Global Flags:
+      --endpoint string    iximiuz Labs API endpoint URL
+  -l, --log-level string   log level for labctl ("debug" | "info" | "warn" | "error" | "fatal") (default "info")
+
+ ✘  multiple-file-template-debugging  main ✘ ⬆  $ labctl 
+labctl - iximiuz Labs command line interface.
+
+Usage:
+  labctl [command]
+
+Available Commands:
+  api          Send requests to iximiuz Labs API
+  auth         Authenticate the current CLI session with iximiuz Labs
+  challenge    Solve DevOps challenges from the comfort of your terminal
+  completion   Generate the autocompletion script for the specified shell
+  content      Author and manage content (challenge, tutorial, course, etc.)
+  course       Start and stop course lessons from the comfort of your terminal
+  cp           Copy files to and from the target playground
+  expose       Expose HTTP(s) ports and web terminals for a running playground
+  help         Help about any command
+  playground   List, start and stop playgrounds
+  port-forward Forward one or more local or remote ports to a running playground
+  ssh          Start SSH session to the target playground
+  ssh-proxy    Start SSH proxy to the playground's machine
+  tutorial     Follow tutorials from the comfort of your local command line
+  version      Print the version of labctl
+
+Flags:
+      --endpoint string    iximiuz Labs API endpoint URL
+  -h, --help               help for labctl
+  -l, --log-level string   log level for labctl ("debug" | "info" | "warn" | "error" | "fatal") (default "info")
+  -v, --version            version for labctl
+
+Use "labctl [command] --help" for more information about a command.
+ multiple-file-template-debugging  main ✘ ⬆  $ labctl playgronud
+Error: unknown command "playgronud" for "labctl"
+
+Did you mean this?
+	playground
+
+Run 'labctl --help' for usage.
+ ✘  multiple-file-template-debugging  main ✘ ⬆  $ labctl playground
+List, start and stop playgrounds
+
+Usage:
+  labctl playground [command]
+
+Aliases:
+  playground, p, playgrounds
+
+Available Commands:
+  catalog     List playgrounds from the catalog, optionally filtering by type
+  create      Create a new playground from a base and a manifest file
+  destroy     Destroy an active or stopped playground session, completely deleting its data
+  list        List recent playground sessions
+  machines    List machines of a specific playground session
+  manifest    View playground manifest
+  persist     Makes an active playground session persistent
+  remove      Remove a playground you authored
+  restart     Restart a stopped playground session, resuming its state
+  start       Start a new playground session, possibly opening it in a browser
+  stop        Stop a running playground session, preserving its state for future use
+  tasks       List tasks of a playground session
+  update      Update an existing playground from a manifest file
+
+Flags:
+  -h, --help   help for playground
+
+Global Flags:
+      --endpoint string    iximiuz Labs API endpoint URL
+  -l, --log-level string   log level for labctl ("debug" | "info" | "warn" | "error" | "fatal") (default "info")
+
+Use "labctl playground [command] --help" for more information about a command.
+ multiple-file-template-debugging  main ✘ ⬆  $ labctl playground list
+PLAYGROUND ID             NAME               CREATED      STATUS                                 LINK
+69b7ad82135d72350789e006  docker             2 hours ago  RUNNING (expires in 5 hours from now)  https://labs.iximiuz.com/playgrounds/docker/69b7ad82135d72350789e006
+69735c1e651ae99eae930d48  coding-agent-base  1 month ago  STOPPED                                
+ multiple-file-template-debugging  main ✘ ⬆  $ labctl playground machines
+Error: accepts 1 arg(s), received 0
+Usage:
+  labctl playground machines <playground-id> [flags]
+
+Flags:
+  -h, --help   help for machines
+
+Global Flags:
+      --endpoint string    iximiuz Labs API endpoint URL
+  -l, --log-level string   log level for labctl ("debug" | "info" | "warn" | "error" | "fatal") (default "info")
+
+ ✘  multiple-file-template-debugging  main ✘ ⬆  $ labctl playground machines 69b7ad82135d72350789e006
+MACHINE NAME
+docker-01
+ multiple-file-template-debugging  main ✘ ⬆  $ labctl playground machines dockerlabctl: Couldn't find playground with ID docker: request failed with status 400: {"error":"Invalid play ID."}.
+ ✘  multiple-file-template-debugging  main ✘ ⬆  $ labctl playground machines 69b7ad82135d72350789e006
+MACHINE NAME
+docker-01
+ multiple-file-template-debugging  main ✘ ⬆  $ labctl cp
+Error: requires at least 2 arg(s), only received 0
+Usage:
+  labctl cp [flags] <playground-id>:<source-path> <destination-path>
+  labctl cp [flags] <source-path> <playground-id>:<destination-path>
+
+Examples:
+  # Copy a file from local machine to playground
+  labctl cp ./some/file 65e78a64366c2b0cf9ddc34c:~/some/file
+
+  # Copy a directory from local machine to playground
+  labctl cp -r ./some/dir 65e78a64366c2b0cf9ddc34c:~/some/dir
+
+  # Copy a file from the playground to local machine
+  labctl cp 65e78a64366c2b0cf9ddc34c:~/some/file ./some/file
+
+  # Copy a directory from the playground to local machine
+  labctl cp 65e78a64366c2b0cf9ddc34c:~/some/dir ./some/dir
+
+
+Flags:
+  -h, --help             help for cp
+  -m, --machine string   Target machine (default: the first machine in the playground)
+  -r, --recursive        Copy directories recursively
+  -u, --user string      SSH user (default: the machine's default login user)
+
+Global Flags:
+      --endpoint string    iximiuz Labs API endpoint URL
+  -l, --log-level string   log level for labctl ("debug" | "info" | "warn" | "error" | "fatal") (default "info")
+
+ ✘  multiple-file-template-debugging  main ✘ ⬆  $ labctl cp 69b7ad82135d72350789e006:/home/laborant/task_5b044399/environment/environment.zip .
+Warning: Permanently added '[127.0.0.1]:54781' (ED25519) to the list of known hosts.
+Done!
+ multiple-file-template-debugging  main ✘ ⬆  $ gst
+On branch main
+Your branch is ahead of 'origin/main' by 4 commits.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   terminal.log
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	environment.zip
+
+no changes added to commit (use "git add" and/or "git commit -a")
+ multiple-file-template-debugging  main ✘ ⬆  $ mv environment.zip ~/Downloads/
+ multiple-file-template-debugging  main ✘ ⬆  $ 
+
+laborant@docker-01:~$ pwd
+/home/laborant
+laborant@docker-01:~$ ls
+1773383447674_task_5b044399.zip  task_5b044399
+laborant@docker-01:~$ cd task_5b044399/
+laborant@docker-01:task_5b044399$ s
+-bash: s: command not found
+laborant@docker-01:task_5b044399$ ls
+codex_env_prompt.txt  codex_events.jsonl  codex_last_message.md  codex_stderr.log  environment  prompt.txt  review.md  scoping_notes.md  verifier
+laborant@docker-01:task_5b044399$ ce
+-bash: ce: command not found
+laborant@docker-01:task_5b044399$ cd environment/
+laborant@docker-01:environment$ ls
+Dockerfile  environment.zip  helm-charts-editor  helm-v3.20.1-linux-amd64.tar.gz  kind-linux-amd64  kubectl
+laborant@docker-01:environment$ pwd
+/home/laborant/task_5b044399/environment
+laborant@docker-01:environment$ 
+
