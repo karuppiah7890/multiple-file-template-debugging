@@ -1,7 +1,3 @@
-Important scope note
-
-- The `values.schema.json` file intentionally contains multiple `persistence` blocks. That is part of the task; avoid broad search-and-replace edits that touch the wrong block.
-
 Your task: Fix the PVC naming mismatch in the `charts/mlflow` chart
 
 Requirements:
@@ -9,5 +5,3 @@ Requirements:
 1. Unify the PVC template metadata name and the workload's `persistentVolumeClaim.claimName` so they render to the same value.
 2. The PVC name rule must be exactly `{{ include "mlflow.fullname" . }}-data-pvc`.
 3. Keep the volume and volume mount definitions aligned with that PVC and with the configured `persistence.mountPath`.
-4. `helm template mlflow-test charts/mlflow --namespace mlflow-test2` must render exactly one PVC named `mlflow-test-data-pvc`, and the workload must reference that same claim.
-5. `helm template prod-check charts/mlflow --namespace prod-space` must render exactly one PVC named `prod-check-mlflow-data-pvc`, and the workload must reference that same claim.
