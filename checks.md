@@ -124,3 +124,221 @@ Raw Output
     "status": "warning"
   }
 }
+
+---
+
+Prompt & Verifier
+Prompt length is in the encouraged 300-700 word range
+Word count: 202 words (encouraged range: 300-700)
+
+Raw Output
+
+{
+  "encouragedMax": 700,
+  "encouragedMin": 300,
+  "errorThreshold": 2000,
+  "minimumWords": 100,
+  "wordCount": 202
+}
+Prompt uses supported plain-text characters
+Description contains only supported plain-text ASCII characters
+
+Raw Output
+
+{
+  "field": "description"
+}
+Verifier uses supported plain-text characters
+Verifier contains only supported plain-text ASCII characters
+
+Raw Output
+
+{
+  "field": "verifier"
+}
+Prompt sanity checks (AI, up to 1 min)
+Raw Output
+
+{
+  "all_issues": "",
+  "no_urls_in_description": {
+    "explanation": "No external URLs or web links are present in the problem description. There are no http/https/www/ftp links, and no URLs of any kind are included.",
+    "status": "OK"
+  },
+  "observable_success_requirements": {
+    "explanation": "The prompt defines clear, observable success criteria: helm lint must succeed; helm template with specific release names and namespaces must render exactly one PVC with precise expected names; and the workload must reference the same claim. Namespace consistency is checked, and alignment of volume/volumeMount with the configured mountPath is verifiable in rendered manifests. These provide concrete, testable outcomes rather than only file edits.",
+    "status": "OK"
+  }
+}
+Prompt contains only necessary information (AI, up to 2 min)
+**Suggestions for improvement** — These are AI-generated suggestions, not hard rules.
+
+- [HIGH] "Your task: Fix the PVC naming mismatch in `charts/mlflow` without widening the task." — Remove “in `charts/mlflow`” (already stated) and “without widening the task” (duplicated by Req 9).
+- [HIGH] "5. Cross-check values yaml, values schema, pvc resource, workload resource so no stale release-name-only PVC rule remains in those files." — Remove this process checklist; the solver can discover stale rules via search. Focus on outcome.
+- [HIGH] "9. Do not refactor the chart or edit unrelated files. Keep the change focused on PVC naming and PVC namespace consistency." — Remove as an obvious default already implied by scope and the scope note.
+- [MEDIUM] "6. `helm lint charts/mlflow` must succeed after your fix." — Remove; lint success is a generic quality gate and doesn’t add new, non-obvious requirements.
+- [MEDIUM] "7. `helm template mlflow-test charts/mlflow --namespace mlflow-test2` must render exactly one PVC named `mlflow-test-data-pvc`, and the workload must reference that same claim." — Remove this redundant example since Req 2 defines the exact name rule; keep a single illustrative example (e.g., item 8) if desired.
+
+*Only high-severity issues are blocking. Medium and low severity suggestions are optional.*
+
+Raw Output
+
+{
+  "status_reasoning": "There are 5 suggestions total, including 3 marked as high priority due to redundancy and obvious defaults. Per rules, any high-priority items or 3+ suggestions require a request_changes verdict.",
+  "suggestions": [
+    {
+      "priority": "high",
+      "quote": "Your task: Fix the PVC naming mismatch in `charts/mlflow` without widening the task.",
+      "suggestion": "Remove the redundant fragments “in `charts/mlflow`” (already stated above) and “without widening the task” (duplicated by Requirement 9)."
+    },
+    {
+      "priority": "high",
+      "quote": "5. Cross-check values yaml, values schema, pvc resource, workload resource so no stale release-name-only PVC rule remains in those files.",
+      "suggestion": "Remove this process-oriented checklist; the solver can locate stale rules by searching the codebase. Keep the focus on the end result instead."
+    },
+    {
+      "priority": "high",
+      "quote": "9. Do not refactor the chart or edit unrelated files. Keep the change focused on PVC naming and PVC namespace consistency.",
+      "suggestion": "Remove — this is an obvious default and already implied by the task scope and the important scope note."
+    },
+    {
+      "priority": "medium",
+      "quote": "6. `helm lint charts/mlflow` must succeed after your fix.",
+      "suggestion": "Remove — this is a general quality gate and typically assumed; it doesn’t add new, non-obvious behavior beyond the main requirement."
+    },
+    {
+      "priority": "medium",
+      "quote": "7. `helm template mlflow-test charts/mlflow --namespace mlflow-test2` must render exactly one PVC named `mlflow-test-data-pvc`, and the workload must reference that same claim.",
+      "suggestion": "Remove this redundant example; Requirement 2 already defines the exact naming rule. Keep a single example (e.g., item 8) if you want one illustrative check."
+    }
+  ],
+  "summary": "- [HIGH] \"Your task: Fix the PVC naming mismatch in `charts/mlflow` without widening the task.\" — Remove “in `charts/mlflow`” (already stated) and “without widening the task” (duplicated by Req 9).\n- [HIGH] \"5. Cross-check values yaml, values schema, pvc resource, workload resource so no stale release-name-only PVC rule remains in those files.\" — Remove this process checklist; the solver can discover stale rules via search. Focus on outcome.\n- [HIGH] \"9. Do not refactor the chart or edit unrelated files. Keep the change focused on PVC naming and PVC namespace consistency.\" — Remove as an obvious default already implied by scope and the scope note.\n- [MEDIUM] \"6. `helm lint charts/mlflow` must succeed after your fix.\" — Remove; lint success is a generic quality gate and doesn’t add new, non-obvious requirements.\n- [MEDIUM] \"7. `helm template mlflow-test charts/mlflow --namespace mlflow-test2` must render exactly one PVC named `mlflow-test-data-pvc`, and the workload must reference that same claim.\" — Remove this redundant example since Req 2 defines the exact name rule; keep a single illustrative example (e.g., item 8) if desired.",
+  "verdict": "request_changes"
+}
+
+---
+
+Prompt length is in the encouraged 300-700 word range
+Word count: 199 words (encouraged range: 300-700)
+
+Raw Output
+
+{
+  "encouragedMax": 700,
+  "encouragedMin": 300,
+  "errorThreshold": 2000,
+  "minimumWords": 100,
+  "wordCount": 199
+}
+Prompt uses supported plain-text characters
+Description contains only supported plain-text ASCII characters
+
+Raw Output
+
+{
+  "field": "description"
+}
+Verifier uses supported plain-text characters
+Verifier contains only supported plain-text ASCII characters
+
+Raw Output
+
+{
+  "field": "verifier"
+}
+Prompt sanity checks (AI, up to 1 min)
+Raw Output
+
+{
+  "all_issues": "",
+  "no_urls_in_description": {
+    "explanation": "No URLs or external web links are present in the problem description; only local file paths and Helm commands are referenced.",
+    "status": "OK"
+  },
+  "observable_success_requirements": {
+    "explanation": "The prompt defines concrete, observable success criteria: helm lint must pass; helm template for two distinct release/namespace pairs must render exactly one PVC with specified names, and the workload must reference that claim; PVC must be in the release namespace; volume and mount alignment must be correct. These outcomes are verifiable from command outputs and rendered manifests, not just file edits.",
+    "status": "OK"
+  }
+}
+Prompt contains only necessary information (AI, up to 2 min)
+**Suggestions for improvement** — These are AI-generated suggestions, not hard rules.
+
+- [HIGH] Remove the explicit file list from requirement 5: "Cross-check `values.yaml`, `values.schema.json`, `templates/pvc.yaml`, and `templates/deployment.yaml`..." Keep only the intent (no stale release-name-only PVC rule); specific files are discoverable and over-prescriptive.
+- [MEDIUM] Delete requirement 8: "helm template prod-check ... must render exactly one PVC named `prod-check-mlflow-data-pvc` ..." It’s redundant with rule #2 and example #7; one example suffices.
+- [MEDIUM] In the task line, remove the phrase "without widening the task" since requirement 9 already covers scope control.
+- [LOW] Remove the admonition "avoid broad search-and-replace edits that touch the wrong block." It’s process guidance, not a requirement; the prior note about multiple `persistence` blocks is sufficient context.
+- [MEDIUM] Remove requirement 3: "Ensure the rendered PVC lands in the Helm release namespace." This is Helm’s default and is implied unless explicitly overridden; it adds no new actionable constraint.
+
+*Only high-severity issues are blocking. Medium and low severity suggestions are optional.*
+
+Raw Output
+
+{
+  "status_reasoning": "There are 5 total suggestions including at least one HIGH priority (over-specified file paths), so the verdict must be request_changes per the rules.",
+  "suggestions": [
+    {
+      "priority": "high",
+      "quote": "5. Cross-check `values.yaml`, `values.schema.json`, `templates/pvc.yaml`, and `templates/deployment.yaml` so no stale release-name-only PVC rule remains in those files.",
+      "suggestion": "Remove the explicit file path enumeration; the solver can discover relevant files from the chart. Keep only the requirement to ensure no stale release-name-only PVC rule remains."
+    },
+    {
+      "priority": "medium",
+      "quote": "8. `helm template prod-check charts/mlflow --namespace prod-space` must render exactly one PVC named `prod-check-mlflow-data-pvc`, and the workload must reference that same claim.",
+      "suggestion": "Remove this second example; it reiterates rule #2 and is redundant with #7. One concrete example is sufficient."
+    },
+    {
+      "priority": "medium",
+      "quote": "Your task: Fix the PVC naming mismatch in `charts/mlflow` without widening the task.",
+      "suggestion": "Remove the trailing phrase \"without widening the task\" — this is already covered by requirement #9."
+    },
+    {
+      "priority": "low",
+      "quote": "... avoid broad search-and-replace edits that touch the wrong block.",
+      "suggestion": "Remove this general admonition; it’s process guidance rather than a requirement and the multiple `persistence` blocks are already noted just above."
+    },
+    {
+      "priority": "medium",
+      "quote": "3. Ensure the rendered PVC lands in the Helm release namespace.",
+      "suggestion": "Remove — in Helm this is the default behavior unless `metadata.namespace` is explicitly set; this requirement is implied and adds verbosity without new constraints."
+    }
+  ],
+  "summary": "- [HIGH] Remove the explicit file list from requirement 5: \"Cross-check `values.yaml`, `values.schema.json`, `templates/pvc.yaml`, and `templates/deployment.yaml`...\" Keep only the intent (no stale release-name-only PVC rule); specific files are discoverable and over-prescriptive.\n- [MEDIUM] Delete requirement 8: \"helm template prod-check ... must render exactly one PVC named `prod-check-mlflow-data-pvc` ...\" It’s redundant with rule #2 and example #7; one example suffices.\n- [MEDIUM] In the task line, remove the phrase \"without widening the task\" since requirement 9 already covers scope control.\n- [LOW] Remove the admonition \"avoid broad search-and-replace edits that touch the wrong block.\" It’s process guidance, not a requirement; the prior note about multiple `persistence` blocks is sufficient context.\n- [MEDIUM] Remove requirement 3: \"Ensure the rendered PVC lands in the Helm release namespace.\" This is Helm’s default and is implied unless explicitly overridden; it adds no new actionable constraint.",
+  "verdict": "request_changes"
+}
+
+---
+
+
+WARNING: The Dockerfile downloads and installs prebuilt binaries (helm, kubectl, kind) from external hosts (get.helm.sh, dl.k8s.io, kind.sigs.k8s.io) at build time. While SHA256 checks are performed, the checksum files are also fetched from remote endpoints and then used for verification; fetching checksums from the same origin reduces some risk but does not eliminate it (an attacker or MITM that can alter both the binary and its checksum at the source could still inject a payload). It is safer to pin known-good checksums directly in the Dockerfile, verify signatures from a separate trusted source (e.g., vendor GPG signatures), or include required binaries in the uploaded bundle so the build does not rely on network fetches. Note: network fetches at build time are allowed for environment construction, but they do make the build dependent on external network availability and trust. No obfuscated/encoded payloads, hardcoded secrets, or host-escape attempts were found.
+
+Note: Internet access is available during `docker build`, but not when running the container. Ensure the Dockerfile installs everything needed for the environment to work offline after build.
+
+Raw Output
+
+{
+  "all_issues": "WARNING: The Dockerfile downloads and installs prebuilt binaries (helm, kubectl, kind) from external hosts (get.helm.sh, dl.k8s.io, kind.sigs.k8s.io) at build time. While SHA256 checks are performed, the checksum files are also fetched from remote endpoints and then used for verification; fetching checksums from the same origin reduces some risk but does not eliminate it (an attacker or MITM that can alter both the binary and its checksum at the source could still inject a payload). It is safer to pin known-good checksums directly in the Dockerfile, verify signatures from a separate trusted source (e.g., vendor GPG signatures), or include required binaries in the uploaded bundle so the build does not rely on network fetches. Note: network fetches at build time are allowed for environment construction, but they do make the build dependent on external network availability and trust. No obfuscated/encoded payloads, hardcoded secrets, or host-escape attempts were found.",
+  "base_image_compliant": {
+    "explanation": "Base image is FROM debian:trixie. This is a reasonable Linux base image and does not enforce any forbidden base image. No clear incompatibility or obvious obsolescence detected.",
+    "status": "OK"
+  },
+  "dependencies_installed": {
+    "explanation": "System packages (bash, ca-certificates, curl, git, jq, python3, python3-yaml, tar, gzip) are installed via apt. Helm, kubectl, and kind binaries are downloaded and installed to /usr/local/bin and SHA256 checks are performed during build. Required tooling appears to be installed so the environment should contain the public dependencies needed for typical helm/kubectl/kind operations.",
+    "status": "OK"
+  },
+  "environment_setup": {
+    "explanation": "WORKDIR is set to /app/helm-charts-editor and the Dockerfile copies the local helm-charts-editor/ directory into /app/helm-charts-editor/, creating a usable workspace rooted under /app. The Dockerfile does not require hidden verifier files and constructs the workspace from the build context. A shell CMD is provided so the workspace is accessible at container run time.",
+    "status": "OK"
+  },
+  "interactive_shell": {
+    "explanation": "CMD [\"/bin/bash\"] is provided and the working directory is set to /app/helm-charts-editor, so an operator or solver can interact with the workspace. The Dockerfile leaves a usable working directory and an interactive shell is available.",
+    "status": "OK"
+  },
+  "runtime_validation": {
+    "explanation": "Build-time integrity checks (sha256sum --check) are run for the downloaded binaries and a small git seed commit is performed; these are lightweight and reasonable validation steps. The Dockerfile does not perform heavy benchmarking or brittle runtime validation during build.",
+    "status": "OK"
+  },
+  "security_safety": {
+    "explanation": "WARNING: The Dockerfile downloads and installs prebuilt binaries (helm, kubectl, kind) from external hosts (get.helm.sh, dl.k8s.io, kind.sigs.k8s.io) at build time. While SHA256 checks are performed, the checksum files are also fetched from remote endpoints and then used for verification; fetching checksums from the same origin reduces some risk but does not eliminate it (an attacker or MITM that can alter both the binary and its checksum at the source could still inject a payload). It is safer to pin known-good checksums directly in the Dockerfile, verify signatures from a separate trusted source (e.g., vendor GPG signatures), or include required binaries in the uploaded bundle so the build does not rely on network fetches. Note: network fetches at build time are allowed for environment construction, but they do make the build dependent on external network availability and trust. No obfuscated/encoded payloads, hardcoded secrets, or host-escape attempts were found.",
+    "status": "warning"
+  }
+}
