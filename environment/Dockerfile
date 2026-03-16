@@ -29,9 +29,9 @@ RUN curl -fsSL https://get.helm.sh/helm-v3.20.1-linux-amd64.tar.gz -o helm-v3.20
     && mv kind-linux-amd64 /usr/local/bin/kind \
     && chmod +x /usr/local/bin/kind
 
-WORKDIR /app/helm-charts-editor
+WORKDIR /app
 
-COPY helm-charts-editor/ /app/helm-charts-editor/
+COPY helm-charts-editor/ /app/
 
 RUN git init >/dev/null 2>&1 \
     && git config user.email task@example.com \

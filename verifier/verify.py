@@ -8,7 +8,7 @@ from pathlib import Path
 import yaml
 
 
-WORKSPACE = Path("/app/helm-charts-editor")
+WORKSPACE = Path("/app")
 CHART_DIR = WORKSPACE / "charts" / "mlflow"
 TARGET_FILES = [
     CHART_DIR / "values.yaml",
