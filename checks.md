@@ -342,3 +342,132 @@ Raw Output
     "status": "warning"
   }
 }
+
+---
+
+Dockerfile
+Dockerfile guidelines
+Warning: WORKDIR is not the canonical /app. The Dockerfile sets WORKDIR to /app/helm-charts-editor and copies the task files into /app/helm-charts-editor. While the solver workspace is placed under /app and is usable, Terminus guidelines SHOULD use /app as the working directory. Setting WORKDIR to /app (or documenting the expected workspace path) would better match the recommendation and avoid surprising tools or users that expect /app as the project root.
+
+Note: Internet access is available during `docker build`, but not when running the container. Ensure the Dockerfile installs everything needed for the environment to work offline after build.
+
+Raw Output
+
+{
+  "all_issues": "Warning: WORKDIR is not the canonical /app. The Dockerfile sets WORKDIR to /app/helm-charts-editor and copies the task files into /app/helm-charts-editor. While the solver workspace is placed under /app and is usable, Terminus guidelines SHOULD use /app as the working directory. Setting WORKDIR to /app (or documenting the expected workspace path) would better match the recommendation and avoid surprising tools or users that expect /app as the project root.",
+  "base_image_compliant": {
+    "explanation": "OK: The Dockerfile uses 'debian:trixie' as the base image. This is a standard Linux base and is acceptable for a Terminus environment. Note: 'trixie' is a testing release (a moving tag) which can make builds less reproducible over time; using a stable/pinned release (e.g., debian:stable) can improve long-term reproducibility but is not required by the policy.",
+    "status": "OK"
+  },
+  "dependencies_installed": {
+    "explanation": "OK: The Dockerfile installs necessary system packages (bash, ca-certificates, curl, git, jq, python3, python3-yaml, tar, gzip) via apt and installs CLI tooling (helm, kubectl, kind) by downloading release binaries and verifying SHA256 checksums. Apt lists are cleaned. This satisfies the requirement to install runtime and tooling dependencies during build so the environment is usable after build completes.",
+    "status": "OK"
+  },
+  "environment_setup": {
+    "explanation": "Warning: WORKDIR is not the canonical /app. The Dockerfile sets WORKDIR to /app/helm-charts-editor and copies the task files into /app/helm-charts-editor. While the solver workspace is placed under /app and is usable, Terminus guidelines SHOULD use /app as the working directory. Setting WORKDIR to /app (or documenting the expected workspace path) would better match the recommendation and avoid surprising tools or users that expect /app as the project root.",
+    "status": "warning"
+  },
+  "interactive_shell": {
+    "explanation": "OK: The image exposes a usable interactive shell via CMD [\"/bin/bash\"]. /bin/bash is installed from apt, and the workspace is placed under /app, so an operator or automated solver can interact with the workspace at runtime.",
+    "status": "OK"
+  },
+  "runtime_validation": {
+    "explanation": "OK: The Dockerfile performs checksum verification (sha256sum) for downloaded binaries and initializes a git repository and commit to seed the workspace. These are lightweight validations appropriate at build time. There are no heavy or brittle benchmark/validation steps that would make the build unreasonable. The downloads mean the build requires network access, but that is allowed as long as the final image is usable offline.",
+    "status": "OK"
+  },
+  "security_safety": {
+    "explanation": "OK: The Dockerfile downloads official release artifacts (helm, kubectl, kind) and verifies them with provided SHA256 checksums before installation. There are no obfuscated/encoded payloads, no hardcoded secrets, and no attempts to access host resources. Downloading binaries during build requires network access at build time, but checksums mitigate tampering risk. This follows acceptable security practice for build-time fetches.",
+    "status": "OK"
+  }
+}
+
+---
+
+Prompt & Verifier
+Prompt length is in the encouraged 300-700 word range
+Word count: 175 words (encouraged range: 300-700)
+
+Raw Output
+
+{
+  "encouragedMax": 700,
+  "encouragedMin": 300,
+  "errorThreshold": 2000,
+  "minimumWords": 100,
+  "wordCount": 175
+}
+Prompt uses supported plain-text characters
+Description contains only supported plain-text ASCII characters
+
+Raw Output
+
+{
+  "field": "description"
+}
+Verifier uses supported plain-text characters
+Verifier contains only supported plain-text ASCII characters
+
+Raw Output
+
+{
+  "field": "verifier"
+}
+Prompt sanity checks (AI, up to 1 min)
+Raw Output
+
+{
+  "all_issues": "",
+  "no_urls_in_description": {
+    "explanation": "No URLs or web links are present in the problem description (no http://, https://, www., ftp:// detected).",
+    "status": "OK"
+  },
+  "observable_success_requirements": {
+    "explanation": "The prompt specifies concrete, observable outcomes: helm lint must pass; helm template with given release names/namespaces must render exactly one PVC with exact names; workloads must reference the same claim; PVC must be in the release namespace; volume mounts must align. These can be verified by inspecting rendered manifests and lint results, not just by file edits.",
+    "status": "OK"
+  }
+}
+Prompt contains only necessary information (AI, up to 2 min)
+**Suggestions for improvement** — These are AI-generated suggestions, not hard rules.
+
+- [HIGH] Remove: “3. Ensure the rendered PVC lands in the Helm release namespace.” Rationale: Helm renders resources into the release namespace by default unless overridden; not specific to the naming fix and adds noise.
+- [MEDIUM] Remove the “Important scope note” about multiple `persistence` blocks and avoiding broad search/replace. Rationale: The structure is discoverable from the codebase; generic cautionary advice is not part of the required behavior.
+- [MEDIUM] Remove: “5. Cross-check all related files to ensure no stale release-name-only PVC rule remains in those files.” Rationale: Process guidance is redundant with requirements 1 and 4; the solver will naturally update references.
+- [MEDIUM] Remove explicit acceptance examples 7 and 8 with `helm template ...` and the expected PVC names. Rationale: These outcomes are fully implied by requirement 2 (use `{{ include "mlflow.fullname" . }}-data-pvc`) and requirement 1 (single, matching claim). They don’t add new constraints beyond the rule.
+- [LOW] Remove: “6. helm lint charts/mlflow must succeed after your fix.” Rationale: Passing lint is an obvious baseline and CI-enforced; it doesn’t inform the implementation beyond the core task.
+
+*Only high-severity issues are blocking. Medium and low severity suggestions are optional.*
+
+Raw Output
+
+{
+  "status_reasoning": "There are 5 total suggestions, including one high-priority removal (obvious Helm namespace default) and multiple medium-priority redundancies. With 3+ suggestions total, the correct verdict is request_changes.",
+  "suggestions": [
+    {
+      "priority": "medium",
+      "quote": "Important scope note\n\n- The `values.schema.json` file intentionally contains multiple `persistence` blocks. That is part of the task; avoid broad search-and-replace edits that touch the wrong block.",
+      "suggestion": "Remove this cautionary note. The presence of multiple `persistence` blocks is discoverable from the codebase, and generic “don’t do broad search/replace” advice adds verbosity without impacting the required behavior."
+    },
+    {
+      "priority": "high",
+      "quote": "3. Ensure the rendered PVC lands in the Helm release namespace.",
+      "suggestion": "Remove. In Helm, resources render into the release namespace by default unless explicitly overridden; this is an obvious default and not specific to fixing the PVC naming mismatch."
+    },
+    {
+      "priority": "medium",
+      "quote": "5. Cross-check all related files to ensure no stale release-name-only PVC rule remains in those files.",
+      "suggestion": "Remove. This is process guidance that’s implied by requirements 1 and 4 (unify names and keep volumes aligned). The solver can discover and update references by searching the codebase."
+    },
+    {
+      "priority": "low",
+      "quote": "6. `helm lint charts/mlflow` must succeed after your fix.",
+      "suggestion": "Remove. Passing lint is an obvious baseline expectation and will be enforced by CI; it does not add task-specific information beyond the core fix."
+    },
+    {
+      "priority": "medium",
+      "quote": "7. `helm template mlflow-test charts/mlflow --namespace mlflow-test2` must render exactly one PVC named `mlflow-test-data-pvc`, and the workload must reference that same claim.\n8. `helm template prod-check charts/mlflow --namespace prod-space` must render exactly one PVC named `prod-check-mlflow-data-pvc`, and the workload must reference that same claim.",
+      "suggestion": "Remove these explicit rendering examples. They are direct corollaries of requirement 2 (use `{{ include \"mlflow.fullname\" . }}-data-pvc`) and requirement 1 (workload must reference the same claim). The exact names are derivable from the existing `mlflow.fullname` helper."
+    }
+  ],
+  "summary": "- [HIGH] Remove: “3. Ensure the rendered PVC lands in the Helm release namespace.” Rationale: Helm renders resources into the release namespace by default unless overridden; not specific to the naming fix and adds noise.\n- [MEDIUM] Remove the “Important scope note” about multiple `persistence` blocks and avoiding broad search/replace. Rationale: The structure is discoverable from the codebase; generic cautionary advice is not part of the required behavior.\n- [MEDIUM] Remove: “5. Cross-check all related files to ensure no stale release-name-only PVC rule remains in those files.” Rationale: Process guidance is redundant with requirements 1 and 4; the solver will naturally update references.\n- [MEDIUM] Remove explicit acceptance examples 7 and 8 with `helm template ...` and the expected PVC names. Rationale: These outcomes are fully implied by requirement 2 (use `{{ include \"mlflow.fullname\" . }}-data-pvc`) and requirement 1 (single, matching claim). They don’t add new constraints beyond the rule.\n- [LOW] Remove: “6. helm lint charts/mlflow must succeed after your fix.” Rationale: Passing lint is an obvious baseline and CI-enforced; it doesn’t inform the implementation beyond the core task.",
+  "verdict": "request_changes"
+}
