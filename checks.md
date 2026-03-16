@@ -562,3 +562,82 @@ Raw Output
   "summary": "- [HIGH] Remove: \"The target chart is `charts/mlflow`\" — redundant because the path appears in the test commands and can be found in the repo.\n- [MEDIUM] Remove problem title metadata: \"Environment: task_5b044399 (multi_file_template_debugging)\" — internal context that doesn’t help implementation.\n- [MEDIUM] Requirement 4: Delete the justification sentence \"This test ensures that if the release name contains chart name, then chart name is not repeated in the full name\" — the command and expected PVC name already express the behavior.\n- [MEDIUM] Requirement 5: Delete the justification sentence \"This test ensures that if the release name does not contain chart name, then chart name is appended in the full name\" — the command and expected PVC name already express the behavior.\n- [LOW] Requirement 5: Remove the repeated clause \"and the workload must reference that same claim\" — it’s already stated in Requirement 4 and implied by Requirement 1; keep this constraint once.",
   "verdict": "request_changes"
 }
+
+---
+
+Prompt & Verifier
+Prompt length is in the encouraged 300-700 word range
+Word count: 134 words (encouraged range: 300-700)
+
+Raw Output
+
+{
+  "encouragedMax": 700,
+  "encouragedMin": 300,
+  "errorThreshold": 2000,
+  "minimumWords": 100,
+  "wordCount": 134
+}
+Prompt uses supported plain-text characters
+Description contains only supported plain-text ASCII characters
+
+Raw Output
+
+{
+  "field": "description"
+}
+Verifier uses supported plain-text characters
+Verifier contains only supported plain-text ASCII characters
+
+Raw Output
+
+{
+  "field": "verifier"
+}
+Prompt sanity checks (AI, up to 1 min)
+Raw Output
+
+{
+  "all_issues": "",
+  "no_urls_in_description": {
+    "explanation": "No URLs or external web links are present in the problem description. Only code snippets and commands are included.",
+    "status": "OK"
+  },
+  "observable_success_requirements": {
+    "explanation": "The prompt specifies concrete, observable outcomes via helm template rendering: exactly one PVC with a specific name for given releases/namespaces, and the workload must reference the same claim. These are verifiable behaviors, not just file edits.",
+    "status": "OK"
+  }
+}
+Prompt contains only necessary information (AI, up to 2 min)
+**Suggestions for improvement** — These are AI-generated suggestions, not hard rules.
+
+- [HIGH] Remove requirement 4: the specific `helm template mlflow-test ...` example and expected PVC name. It reiterates outcomes already mandated by using `{{ include "mlflow.fullname" . }}-data-pvc` and aligning the claim reference; consolidate to a single generic acceptance check if needed.
+- [HIGH] Remove requirement 5: the `helm template prod-check ...` example and expected PVC name. It duplicates requirement 2’s consequence and adds no new constraints; keep at most one consolidated acceptance criterion.
+- [MEDIUM] Remove the “Important scope note” about multiple `persistence` blocks in `values.schema.json`. This is discoverable by inspecting the codebase and is process guidance, not a requirement.
+
+*Only high-severity issues are blocking. Medium and low severity suggestions are optional.*
+
+Raw Output
+
+{
+  "status_reasoning": "There are three suggestions total, including two high-priority removals for redundant acceptance examples and one medium-priority removal for process guidance. With 3+ suggestions and presence of HIGH items, the verdict must be request_changes.",
+  "suggestions": [
+    {
+      "priority": "medium",
+      "quote": "Important scope note\n\n- The `values.schema.json` file intentionally contains multiple `persistence` blocks. That is part of the task; avoid broad search-and-replace edits that touch the wrong block.",
+      "suggestion": "Remove this process warning. The presence of multiple `persistence` blocks is discoverable from the codebase and does not specify required behavior; it’s implementation guidance rather than a requirement."
+    },
+    {
+      "priority": "high",
+      "quote": "4. `helm template mlflow-test charts/mlflow --namespace mlflow-test2` must render exactly one PVC named `mlflow-test-data-pvc`, and the workload must reference that same claim.",
+      "suggestion": "Remove this example acceptance case. It restates outcomes already implied by requirement 2 (using `{{ include \"mlflow.fullname\" . }}`) and requirement 1/3. If an example is kept, consolidate into a single generic acceptance check instead of listing concrete release/namespace cases."
+    },
+    {
+      "priority": "high",
+      "quote": "5. `helm template prod-check charts/mlflow --namespace prod-space` must render exactly one PVC named `prod-check-mlflow-data-pvc`, and the workload must reference that same claim.",
+      "suggestion": "Remove this second example; it is redundant with requirement 2 and duplicates the prior example without adding new constraints. Keep at most one consolidated acceptance criterion if needed."
+    }
+  ],
+  "summary": "- [HIGH] Remove requirement 4: the specific `helm template mlflow-test ...` example and expected PVC name. It reiterates outcomes already mandated by using `{{ include \"mlflow.fullname\" . }}-data-pvc` and aligning the claim reference; consolidate to a single generic acceptance check if needed.\n- [HIGH] Remove requirement 5: the `helm template prod-check ...` example and expected PVC name. It duplicates requirement 2’s consequence and adds no new constraints; keep at most one consolidated acceptance criterion.\n- [MEDIUM] Remove the “Important scope note” about multiple `persistence` blocks in `values.schema.json`. This is discoverable by inspecting the codebase and is process guidance, not a requirement.",
+  "verdict": "request_changes"
+}
