@@ -679,3 +679,258 @@ Raw Output
     "status": "warning"
   }
 }
+
+---
+
+Verify Build
+Verify Build
+Docker image built successfully.
+
+Completed in 109.7s
+
+Raw Output
+
+{
+  "completed": true,
+  "executionTimeSeconds": 109.657678,
+  "message": "Docker image built successfully."
+}
+
+---
+
+Verify Verifier
+Verify Verifier
+Verdict
+
+PASS
+Verifier fails on the untouched environment (expected). This only confirms execution sanity and that the clean environment does not already satisfy the task. It does not prove the verifier fully tests the required functionality.
+
+Completed in 11.1s
+
+Raw Output
+
+{
+  "baselinePassed": true,
+  "completed": true,
+  "executionTimeSeconds": 11.099015,
+  "message": "Verifier fails on the untouched environment (expected). This only confirms execution sanity and that the clean environment does not already satisfy the task. It does not prove the verifier fully tests the required functionality.",
+  "newTestsPassed": false,
+  "verdict": "PASS",
+  "verifierExitCode": 1,
+  "verifierPassed": false
+}
+
+---
+
+Scope-down Documentation
+Scope-down Documentation
+Verdict
+
+FAIL
+Environment review found notable issues (0 high, 3 medium, 1 low).
+
+Summary
+
+Overall this is a justified scope-down environment with a functional verifier, but review outcome is failing because prompt-verifier bijection is partial rather than complete.
+
+Completed in 116.6s
+
+Parsed Review
+
+Scope: Justified Scope Down
+Scope-down Doc: Provided
+Environment Match
+
+The bundle keeps the core mlflow Helm debugging surface and required target files, but scopes down the official environment by replacing full sibling charts with placeholders and dropping the requirement for a pre-running in-container Kubernetes cluster. Given the provided justification (offline construction constraints and fragility of nested-cluster dependency), this reduction is explicit and still preserves the core capability target of multi-file Helm PVC naming/template consistency debugging.
+
+Low Priority
+
+Official environment asks for a running local Kubernetes cluster and full sibling chart content, while this bundle intentionally uses lint/template-only validation and placeholder sibling charts under the documented scope-down.
+
+Hide raw output
+{
+  "completed": true,
+  "envMatch": "justified_scope_down",
+  "executionTimeSeconds": 116.587873,
+  "message": "Environment review found notable issues (0 high, 3 medium, 1 low).",
+  "promptVerifierBijection": "partial",
+  "promptVerifierReview": {
+    "high_priority": [],
+    "low_priority": [],
+    "medium_priority": [
+      "Prompt -> verifier gap: the verifier validates rendered names for two test releases but does not guarantee the implementation follows the prompt's exact naming rule expression in a fully general way.",
+      "Verifier -> prompt overconstraint: `verify.py` enforces additional schema-preservation rules (minimum duplicate \"persistence\" occurrences and exact root persistence key set) that are not explicitly declared as hard prompt requirements.",
+      "Verifier -> prompt overconstraint: workspace file presence checks (for example `.gitignore`) are infrastructure assumptions not directly tied to the solver task requirements."
+    ],
+    "prompt_verifier_bijection": "partial",
+    "summary": "The verifier performs meaningful runtime checks via `helm lint` and `helm template` for two releases, validating PVC count, rendered PVC name, namespace placement, workload claim usage, and mountPath consistency. However, alignment is incomplete: it does not fully prove the prompt's strict \"must be exactly {{ include \"mlflow.fullname\" . }}-data-pvc\" rule beyond sampled outputs, and it adds undocumented constraints (duplicate-persistence preservation and exact root persistence schema shape) that are not clearly stated as solver-facing requirements in the prompt."
+  },
+  "review": {
+    "env_match_summary": "The bundle keeps the core mlflow Helm debugging surface and required target files, but scopes down the official environment by replacing full sibling charts with placeholders and dropping the requirement for a pre-running in-container Kubernetes cluster. Given the provided justification (offline construction constraints and fragility of nested-cluster dependency), this reduction is explicit and still preserves the core capability target of multi-file Helm PVC naming/template consistency debugging.",
+    "env_matches_official": false,
+    "high_priority": [],
+    "low_priority": [
+      "Official environment asks for a running local Kubernetes cluster and full sibling chart content, while this bundle intentionally uses lint/template-only validation and placeholder sibling charts under the documented scope-down."
+    ],
+    "medium_priority": [
+      "Prompt -> verifier gap: the verifier validates rendered names for two test releases but does not guarantee the implementation follows the prompt's exact naming rule expression in a fully general way.",
+      "Verifier -> prompt overconstraint: `verify.py` enforces additional schema-preservation rules (minimum duplicate \"persistence\" occurrences and exact root persistence key set) that are not explicitly declared as hard prompt requirements.",
+      "Verifier -> prompt overconstraint: workspace file presence checks (for example `.gitignore`) are infrastructure assumptions not directly tied to the solver task requirements."
+    ],
+    "official_task_id": "task_5b044399",
+    "prompt_verifier_bijection": "partial",
+    "prompt_verifier_review": {
+      "high_priority": [],
+      "low_priority": [],
+      "medium_priority": [
+        "Prompt -> verifier gap: the verifier validates rendered names for two test releases but does not guarantee the implementation follows the prompt's exact naming rule expression in a fully general way.",
+        "Verifier -> prompt overconstraint: `verify.py` enforces additional schema-preservation rules (minimum duplicate \"persistence\" occurrences and exact root persistence key set) that are not explicitly declared as hard prompt requirements.",
+        "Verifier -> prompt overconstraint: workspace file presence checks (for example `.gitignore`) are infrastructure assumptions not directly tied to the solver task requirements."
+      ],
+      "prompt_verifier_bijection": "partial",
+      "summary": "The verifier performs meaningful runtime checks via `helm lint` and `helm template` for two releases, validating PVC count, rendered PVC name, namespace placement, workload claim usage, and mountPath consistency. However, alignment is incomplete: it does not fully prove the prompt's strict \"must be exactly {{ include \"mlflow.fullname\" . }}-data-pvc\" rule beyond sampled outputs, and it adds undocumented constraints (duplicate-persistence preservation and exact root persistence schema shape) that are not clearly stated as solver-facing requirements in the prompt."
+    },
+    "scope_classification": "justified_scope_down",
+    "scope_down_involved": true,
+    "scope_down_justification_assessment": "reasonable",
+    "scope_down_justification_provided": true,
+    "scope_review": {
+      "high_priority": [],
+      "low_priority": [
+        "Official environment asks for a running local Kubernetes cluster and full sibling chart content, while this bundle intentionally uses lint/template-only validation and placeholder sibling charts under the documented scope-down."
+      ],
+      "medium_priority": [],
+      "scope_classification": "justified_scope_down",
+      "scope_down_involved": true,
+      "scope_down_justification_assessment": "reasonable",
+      "scope_down_justification_provided": true,
+      "summary": "The bundle keeps the core mlflow Helm debugging surface and required target files, but scopes down the official environment by replacing full sibling charts with placeholders and dropping the requirement for a pre-running in-container Kubernetes cluster. Given the provided justification (offline construction constraints and fragility of nested-cluster dependency), this reduction is explicit and still preserves the core capability target of multi-file Helm PVC naming/template consistency debugging."
+    },
+    "summary": "Overall this is a justified scope-down environment with a functional verifier, but review outcome is failing because prompt-verifier bijection is partial rather than complete.",
+    "verifier_coverage_summary": "The verifier performs meaningful runtime checks via `helm lint` and `helm template` for two releases, validating PVC count, rendered PVC name, namespace placement, workload claim usage, and mountPath consistency. However, alignment is incomplete: it does not fully prove the prompt's strict \"must be exactly {{ include \"mlflow.fullname\" . }}-data-pvc\" rule beyond sampled outputs, and it adds undocumented constraints (duplicate-persistence preservation and exact root persistence schema shape) that are not clearly stated as solver-facing requirements in the prompt."
+  },
+  "scopeDownInvolved": true,
+  "scopeDownJustificationProvided": true,
+  "scopeReview": {
+    "high_priority": [],
+    "low_priority": [
+      "Official environment asks for a running local Kubernetes cluster and full sibling chart content, while this bundle intentionally uses lint/template-only validation and placeholder sibling charts under the documented scope-down."
+    ],
+    "medium_priority": [],
+    "scope_classification": "justified_scope_down",
+    "scope_down_involved": true,
+    "scope_down_justification_assessment": "reasonable",
+    "scope_down_justification_provided": true,
+    "summary": "The bundle keeps the core mlflow Helm debugging surface and required target files, but scopes down the official environment by replacing full sibling charts with placeholders and dropping the requirement for a pre-running in-container Kubernetes cluster. Given the provided justification (offline construction constraints and fragility of nested-cluster dependency), this reduction is explicit and still preserves the core capability target of multi-file Helm PVC naming/template consistency debugging."
+  },
+  "summary": "Overall this is a justified scope-down environment with a functional verifier, but review outcome is failing because prompt-verifier bijection is partial rather than complete.",
+  "verdict": "FAIL"
+}
+
+---
+
+Prompt ↔ Verifier Match
+Prompt ↔ Verifier Match
+Verdict
+
+FAIL
+Environment review found notable issues (0 high, 3 medium, 1 low).
+
+Summary
+
+Overall this is a justified scope-down environment with a functional verifier, but review outcome is failing because prompt-verifier bijection is partial rather than complete.
+
+Completed in 116.6s
+
+Parsed Review
+
+Prompt/Verifier: Partial
+Prompt / Verifier Coverage
+
+The verifier performs meaningful runtime checks via `helm lint` and `helm template` for two releases, validating PVC count, rendered PVC name, namespace placement, workload claim usage, and mountPath consistency. However, alignment is incomplete: it does not fully prove the prompt's strict "must be exactly {{ include "mlflow.fullname" . }}-data-pvc" rule beyond sampled outputs, and it adds undocumented constraints (duplicate-persistence preservation and exact root persistence schema shape) that are not clearly stated as solver-facing requirements in the prompt.
+
+Medium Priority
+
+Prompt -> verifier gap: the verifier validates rendered names for two test releases but does not guarantee the implementation follows the prompt's exact naming rule expression in a fully general way.
+Verifier -> prompt overconstraint: `verify.py` enforces additional schema-preservation rules (minimum duplicate "persistence" occurrences and exact root persistence key set) that are not explicitly declared as hard prompt requirements.
+Verifier -> prompt overconstraint: workspace file presence checks (for example `.gitignore`) are infrastructure assumptions not directly tied to the solver task requirements.
+
+Hide raw output
+{
+  "completed": true,
+  "envMatch": "justified_scope_down",
+  "executionTimeSeconds": 116.587873,
+  "message": "Environment review found notable issues (0 high, 3 medium, 1 low).",
+  "promptVerifierBijection": "partial",
+  "promptVerifierReview": {
+    "high_priority": [],
+    "low_priority": [],
+    "medium_priority": [
+      "Prompt -> verifier gap: the verifier validates rendered names for two test releases but does not guarantee the implementation follows the prompt's exact naming rule expression in a fully general way.",
+      "Verifier -> prompt overconstraint: `verify.py` enforces additional schema-preservation rules (minimum duplicate \"persistence\" occurrences and exact root persistence key set) that are not explicitly declared as hard prompt requirements.",
+      "Verifier -> prompt overconstraint: workspace file presence checks (for example `.gitignore`) are infrastructure assumptions not directly tied to the solver task requirements."
+    ],
+    "prompt_verifier_bijection": "partial",
+    "summary": "The verifier performs meaningful runtime checks via `helm lint` and `helm template` for two releases, validating PVC count, rendered PVC name, namespace placement, workload claim usage, and mountPath consistency. However, alignment is incomplete: it does not fully prove the prompt's strict \"must be exactly {{ include \"mlflow.fullname\" . }}-data-pvc\" rule beyond sampled outputs, and it adds undocumented constraints (duplicate-persistence preservation and exact root persistence schema shape) that are not clearly stated as solver-facing requirements in the prompt."
+  },
+  "review": {
+    "env_match_summary": "The bundle keeps the core mlflow Helm debugging surface and required target files, but scopes down the official environment by replacing full sibling charts with placeholders and dropping the requirement for a pre-running in-container Kubernetes cluster. Given the provided justification (offline construction constraints and fragility of nested-cluster dependency), this reduction is explicit and still preserves the core capability target of multi-file Helm PVC naming/template consistency debugging.",
+    "env_matches_official": false,
+    "high_priority": [],
+    "low_priority": [
+      "Official environment asks for a running local Kubernetes cluster and full sibling chart content, while this bundle intentionally uses lint/template-only validation and placeholder sibling charts under the documented scope-down."
+    ],
+    "medium_priority": [
+      "Prompt -> verifier gap: the verifier validates rendered names for two test releases but does not guarantee the implementation follows the prompt's exact naming rule expression in a fully general way.",
+      "Verifier -> prompt overconstraint: `verify.py` enforces additional schema-preservation rules (minimum duplicate \"persistence\" occurrences and exact root persistence key set) that are not explicitly declared as hard prompt requirements.",
+      "Verifier -> prompt overconstraint: workspace file presence checks (for example `.gitignore`) are infrastructure assumptions not directly tied to the solver task requirements."
+    ],
+    "official_task_id": "task_5b044399",
+    "prompt_verifier_bijection": "partial",
+    "prompt_verifier_review": {
+      "high_priority": [],
+      "low_priority": [],
+      "medium_priority": [
+        "Prompt -> verifier gap: the verifier validates rendered names for two test releases but does not guarantee the implementation follows the prompt's exact naming rule expression in a fully general way.",
+        "Verifier -> prompt overconstraint: `verify.py` enforces additional schema-preservation rules (minimum duplicate \"persistence\" occurrences and exact root persistence key set) that are not explicitly declared as hard prompt requirements.",
+        "Verifier -> prompt overconstraint: workspace file presence checks (for example `.gitignore`) are infrastructure assumptions not directly tied to the solver task requirements."
+      ],
+      "prompt_verifier_bijection": "partial",
+      "summary": "The verifier performs meaningful runtime checks via `helm lint` and `helm template` for two releases, validating PVC count, rendered PVC name, namespace placement, workload claim usage, and mountPath consistency. However, alignment is incomplete: it does not fully prove the prompt's strict \"must be exactly {{ include \"mlflow.fullname\" . }}-data-pvc\" rule beyond sampled outputs, and it adds undocumented constraints (duplicate-persistence preservation and exact root persistence schema shape) that are not clearly stated as solver-facing requirements in the prompt."
+    },
+    "scope_classification": "justified_scope_down",
+    "scope_down_involved": true,
+    "scope_down_justification_assessment": "reasonable",
+    "scope_down_justification_provided": true,
+    "scope_review": {
+      "high_priority": [],
+      "low_priority": [
+        "Official environment asks for a running local Kubernetes cluster and full sibling chart content, while this bundle intentionally uses lint/template-only validation and placeholder sibling charts under the documented scope-down."
+      ],
+      "medium_priority": [],
+      "scope_classification": "justified_scope_down",
+      "scope_down_involved": true,
+      "scope_down_justification_assessment": "reasonable",
+      "scope_down_justification_provided": true,
+      "summary": "The bundle keeps the core mlflow Helm debugging surface and required target files, but scopes down the official environment by replacing full sibling charts with placeholders and dropping the requirement for a pre-running in-container Kubernetes cluster. Given the provided justification (offline construction constraints and fragility of nested-cluster dependency), this reduction is explicit and still preserves the core capability target of multi-file Helm PVC naming/template consistency debugging."
+    },
+    "summary": "Overall this is a justified scope-down environment with a functional verifier, but review outcome is failing because prompt-verifier bijection is partial rather than complete.",
+    "verifier_coverage_summary": "The verifier performs meaningful runtime checks via `helm lint` and `helm template` for two releases, validating PVC count, rendered PVC name, namespace placement, workload claim usage, and mountPath consistency. However, alignment is incomplete: it does not fully prove the prompt's strict \"must be exactly {{ include \"mlflow.fullname\" . }}-data-pvc\" rule beyond sampled outputs, and it adds undocumented constraints (duplicate-persistence preservation and exact root persistence schema shape) that are not clearly stated as solver-facing requirements in the prompt."
+  },
+  "scopeDownInvolved": true,
+  "scopeDownJustificationProvided": true,
+  "scopeReview": {
+    "high_priority": [],
+    "low_priority": [
+      "Official environment asks for a running local Kubernetes cluster and full sibling chart content, while this bundle intentionally uses lint/template-only validation and placeholder sibling charts under the documented scope-down."
+    ],
+    "medium_priority": [],
+    "scope_classification": "justified_scope_down",
+    "scope_down_involved": true,
+    "scope_down_justification_assessment": "reasonable",
+    "scope_down_justification_provided": true,
+    "summary": "The bundle keeps the core mlflow Helm debugging surface and required target files, but scopes down the official environment by replacing full sibling charts with placeholders and dropping the requirement for a pre-running in-container Kubernetes cluster. Given the provided justification (offline construction constraints and fragility of nested-cluster dependency), this reduction is explicit and still preserves the core capability target of multi-file Helm PVC naming/template consistency debugging."
+  },
+  "summary": "Overall this is a justified scope-down environment with a functional verifier, but review outcome is failing because prompt-verifier bijection is partial rather than complete.",
+  "verdict": "FAIL"
+}
