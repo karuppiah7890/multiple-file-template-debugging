@@ -471,3 +471,94 @@ Raw Output
   "summary": "- [HIGH] Remove: “3. Ensure the rendered PVC lands in the Helm release namespace.” Rationale: Helm renders resources into the release namespace by default unless overridden; not specific to the naming fix and adds noise.\n- [MEDIUM] Remove the “Important scope note” about multiple `persistence` blocks and avoiding broad search/replace. Rationale: The structure is discoverable from the codebase; generic cautionary advice is not part of the required behavior.\n- [MEDIUM] Remove: “5. Cross-check all related files to ensure no stale release-name-only PVC rule remains in those files.” Rationale: Process guidance is redundant with requirements 1 and 4; the solver will naturally update references.\n- [MEDIUM] Remove explicit acceptance examples 7 and 8 with `helm template ...` and the expected PVC names. Rationale: These outcomes are fully implied by requirement 2 (use `{{ include \"mlflow.fullname\" . }}-data-pvc`) and requirement 1 (single, matching claim). They don’t add new constraints beyond the rule.\n- [LOW] Remove: “6. helm lint charts/mlflow must succeed after your fix.” Rationale: Passing lint is an obvious baseline and CI-enforced; it doesn’t inform the implementation beyond the core task.",
   "verdict": "request_changes"
 }
+
+---
+
+Prompt & Verifier
+Prompt length is in the encouraged 300-700 word range
+Word count: 182 words (encouraged range: 300-700)
+
+Raw Output
+
+{
+  "encouragedMax": 700,
+  "encouragedMin": 300,
+  "errorThreshold": 2000,
+  "minimumWords": 100,
+  "wordCount": 182
+}
+Prompt uses supported plain-text characters
+Description contains only supported plain-text ASCII characters
+
+Raw Output
+
+{
+  "field": "description"
+}
+Verifier uses supported plain-text characters
+Verifier contains only supported plain-text ASCII characters
+
+Raw Output
+
+{
+  "field": "verifier"
+}
+Prompt sanity checks (AI, up to 1 min)
+Raw Output
+
+{
+  "all_issues": "",
+  "no_urls_in_description": {
+    "explanation": "No URLs or external links are present in the problem description. Only local commands and chart paths are referenced.",
+    "status": "OK"
+  },
+  "observable_success_requirements": {
+    "explanation": "The prompt specifies concrete, observable outcomes: running two explicit helm template commands must render exactly one PVC with exact expected names, and the workload must reference that same claim. It also requires alignment of volume/volumeMounts with the configured mountPath. These are verifiable behaviors, not just file edits.",
+    "status": "OK"
+  }
+}
+Prompt contains only necessary information (AI, up to 2 min)
+**Suggestions for improvement** — These are AI-generated suggestions, not hard rules.
+
+- [HIGH] Remove: "The target chart is `charts/mlflow`" — redundant because the path appears in the test commands and can be found in the repo.
+- [MEDIUM] Remove problem title metadata: "Environment: task_5b044399 (multi_file_template_debugging)" — internal context that doesn’t help implementation.
+- [MEDIUM] Requirement 4: Delete the justification sentence "This test ensures that if the release name contains chart name, then chart name is not repeated in the full name" — the command and expected PVC name already express the behavior.
+- [MEDIUM] Requirement 5: Delete the justification sentence "This test ensures that if the release name does not contain chart name, then chart name is appended in the full name" — the command and expected PVC name already express the behavior.
+- [LOW] Requirement 5: Remove the repeated clause "and the workload must reference that same claim" — it’s already stated in Requirement 4 and implied by Requirement 1; keep this constraint once.
+
+*Only high-severity issues are blocking. Medium and low severity suggestions are optional.*
+
+Raw Output
+
+{
+  "status_reasoning": "There are 5 suggestions total, including one HIGH priority item, so the verdict must be request_changes per the rules (ANY high or 3+ total suggestions).",
+  "suggestions": [
+    {
+      "priority": "high",
+      "quote": "The target chart is `charts/mlflow`",
+      "suggestion": "Remove this line. The chart path is already present in the test commands below and can be discovered from the repo; repeating it adds noise."
+    },
+    {
+      "priority": "medium",
+      "quote": "Environment: task_5b044399 (multi_file_template_debugging)",
+      "suggestion": "Remove the environment/problem title metadata. It doesn’t affect implementation and adds no actionable information for the solver."
+    },
+    {
+      "priority": "medium",
+      "quote": "This test ensures that if the release name contains chart name, then chart name is not repeated in the full name",
+      "suggestion": "Delete this explanatory sentence from Requirement 4. The command and expected PVC name already convey the needed behavior."
+    },
+    {
+      "priority": "medium",
+      "quote": "This test ensures that if the release name does not contain chart name, then chart name is appended in the full name",
+      "suggestion": "Delete this explanatory sentence from Requirement 5. The command and expected PVC name already convey the needed behavior."
+    },
+    {
+      "priority": "low",
+      "quote": "and the workload must reference that same claim",
+      "suggestion": "Remove this repeated clause from Requirement 5 (it’s already stated in Requirement 4 and implied by Requirement 1). Keep it once to reduce redundancy."
+    }
+  ],
+  "summary": "- [HIGH] Remove: \"The target chart is `charts/mlflow`\" — redundant because the path appears in the test commands and can be found in the repo.\n- [MEDIUM] Remove problem title metadata: \"Environment: task_5b044399 (multi_file_template_debugging)\" — internal context that doesn’t help implementation.\n- [MEDIUM] Requirement 4: Delete the justification sentence \"This test ensures that if the release name contains chart name, then chart name is not repeated in the full name\" — the command and expected PVC name already express the behavior.\n- [MEDIUM] Requirement 5: Delete the justification sentence \"This test ensures that if the release name does not contain chart name, then chart name is appended in the full name\" — the command and expected PVC name already express the behavior.\n- [LOW] Requirement 5: Remove the repeated clause \"and the workload must reference that same claim\" — it’s already stated in Requirement 4 and implied by Requirement 1; keep this constraint once.",
+  "verdict": "request_changes"
+}
