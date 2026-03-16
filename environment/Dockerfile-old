@@ -1,0 +1,29 @@
+FROM alpine:3.23.3
+
+RUN apk update && apk add --no-cache \
+    openssl \
+    bash \
+    ca-certificates \
+    curl \
+    git \
+    jq \
+    python3 \
+    py3-yaml \
+    tar \
+    gzip
+
+RUN curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash \
+    && curl -fsSL https://dl.k8s.io/release/v1.35.2/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl \
+    && chmod +x /usr/local/bin/kubectl \
+    && curl -fsSL https://kind.sigs.k8s.io/dl/v0.31.0/kind-linux-amd64 -o /usr/local/bin/kind \
+    && chmod +x /usr/local/bin/kind
+
+WORKDIR /app/helm-charts-editor
+
+COPY helm-charts-editor/ /app/helm-charts-editor/
+
+RUN git init >/dev/null 2>&1 \
+    && git config user.email task@example.com \
+    && git config user.name "Task Seed" \
+    && git add . \
+    && git commit -m "seed task workspace" >/dev/null 2>&1 || true
